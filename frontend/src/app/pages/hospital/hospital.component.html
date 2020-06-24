@@ -1,0 +1,25 @@
+<div class="col-md-12 mt-3 mb-2">
+    <div class="card card-body">
+        <h3 *ngIf="!id>0" class="color-titulo">Crear Hospital</h3>
+        <h3 *ngIf="id>0" class="color-titulo">Editar Hospital</h3>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <form #f="ngForm" (ngSubmit)="guardar(f)">
+                    <div class="form-group">
+                        <label class="subtitulo">Nombre</label>
+                        <input [(ngModel)]="hospital.nombre" name="nombre" type="varchar" class="form-control"
+                            placeholder="Nombre" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-1">
+                        <i class="icon-floppy"></i>
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-secondary" (click)="cancelar(f)">
+                        <i class="icon-block"></i>
+                        Cancel
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

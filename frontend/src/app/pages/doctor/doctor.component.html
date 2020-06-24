@@ -1,0 +1,48 @@
+<div class="col-md-12 mt-3 mb-2">
+    <div class="card card-body">
+        <h3 *ngIf="!id>0" class="color-titulo">Crear Doctor</h3>
+        <h3 *ngIf="id>0" class="color-titulo">Editar Doctor</h3>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <form #f="ngForm" (ngSubmit)="guardar(f)">
+                    <div class="form-group">
+                        <label class="subtitulo">Hospital</label>
+                        <select [(ngModel)]="doctor.idHospital" name="idHospital" class="form-control" required>
+                            <option [ngValue]="undefined" disabled selected>Seleccione un hospital</option>
+                            <option *ngFor="let hospital of hospitales" [value]="hospital.id">
+                                {{ hospital.nombre }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="subtitulo">Nombre</label>
+                        <input [(ngModel)]="doctor.nombre" name="nombre" type="varchar" class="form-control"
+                            placeholder="Nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="subtitulo">Apellido</label>
+                        <input [(ngModel)]="doctor.apellido" name="apellido" type="varchar" class="form-control"
+                            placeholder="Apellido" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="subtitulo">Fecha de Nacimiento</label>
+                        <input type="date" name="fecha" class="form-control" [(ngModel)]="doctor.fechaNacimiento">
+                    </div>
+                    <div class="form-group">
+                        <label class="subtitulo">Dirección</label>
+                        <input [(ngModel)]="doctor.direccion" name="direccion" type="varchar" class="form-control"
+                            placeholder="Direccion" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-1">
+                        <i class="icon-floppy"></i>
+                        Guardar
+                    </button>
+                    <button type="button" class="btn btn-secondary" (click)="cancelar(f)">
+                        <i class="icon-block"></i>
+                        Cancel
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

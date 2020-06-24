@@ -1,0 +1,142 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card mt-3">
+            <div class="card-body">
+                <div class="row pl-3">
+                    <input (click)="cambioBusqueda()" type="radio" id="texto" name="gender" [(ngModel)]="tipoBusqueda" [value]="1">
+                    <label class="pr-4 pl-1 subtitulo" for="texto" style="font-size: 12px;"> Buscar por Nombre o Apellido</label><br>
+                    <input (click)="cambioBusqueda()" type="radio" id="fecha" name="gender" [(ngModel)]="tipoBusqueda" [value]="2">
+                    <label class="pr-2 pl-1 subtitulo" for="fecha" style="font-size: 12px;">Buscar por Fecha</label><br>
+                </div>
+                <input *ngIf="tipoBusqueda==1" #input
+                    [(ngModel)]="terminoBuscado"
+                    (keyup)="buscar()"
+                    type="text"
+                    class="form-control"
+                    placeholder="Buscar Doctor..."/>
+                    <div class="row" *ngIf="tipoBusqueda==2">
+                        <div class="col-4">
+                            <input type="date" name="fecha" class="form-control" [(ngModel)]="fechaBuscada">
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary" (click)="buscar()">
+                                Buscar
+                                <i class="icon-search"></i>
+                            </button>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="rowanimated fadeIn">
+    <div class="col-12 p-0">
+        <div class="card mb-2 mt-1">
+            <div class="card-body">
+                <div class="text-right">
+                    <button [routerLink]="['/doctor', 'nuevo']" type="button" title="Crear Registro"
+                        class="btn waves-effect waves-light btn-rounded btn-primary">
+                        <i class="icon-plus"></i>
+                        Crear Doctor
+                    </button>
+                </div>
+                <h3 class="card-title color-titulo">
+                    Lista de Doctores
+                </h3>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Nacimiento</th>
+                            <th>Dirección</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="
+                  let doctor of doctoresFiltro
+                    | paginate: { itemsPerPage: 5, currentPage: pagina }">
+                            <td>
+                                {{ doctor.nombre }}
+                            </td>
+                            <td>
+                                {{ doctor.apellido }}
+                            </td>
+                            <td>
+                                {{ doctor.fechaNacimiento | date: 'MM/dd/yyyy' }}
+                            </td>
+                            <td>
+                                {{ doctor.direccion }}
+                            </td>
+                            <td class="no-wrap">
+                                <button (click)="mostrarVisitas(doctor)" class="btn btn-info btn-sm mr-1" title="Detalle de Visitas">
+                                    <i class="icon-info"></i>
+                                </button>
+
+                                <button [routerLink]="['/doctor-especialidad', doctor.id]" class="btn btn-info btn-sm mr-1" title="Especialidades">
+                                    <i class="icon-sitemap"></i>
+                                </button>
+
+                                <button [routerLink]="['/doctor', doctor.id]" class="btn btn-primary btn-sm mr-1" title="Editar Registro">
+                                    <i class="icon-pencil"></i>
+                                </button>
+
+                                <button (click)="borrar(doctor)" class="btn btn-secondary btn-sm" title="Eliminar Registro">
+                                    <i class="icon-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="pagina = $event"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="fondo-negro animated fadeIn" *ngIf="mostrarModal">
+    <div class="modal" style="display: block;" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title subtitulo">Detalle de visitas del Doctor: {{ doctor.nombre }} {{ doctor.apellido }}</h5>
+                    <button (click)="mostrarModal=false" type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Paciente</th>
+                                <th>Descripcion</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="
+                      let visita of visitas
+                        | paginate: { itemsPerPage: 5, currentPage: paginaVisitas }">
+                                <td>
+                                    {{ visita.nombre }} {{ visita.apellido }}
+                                </td>
+                                <td>
+                                    {{ visita.descripcion }}
+                                </td>
+                                <td>
+                                    {{ visita.fecha | date: 'MM/dd/yyyy' }}
+                                </td>                                
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="paginaVisita = $event"></pagination-controls>                   
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" (click)="mostrarModal=false">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

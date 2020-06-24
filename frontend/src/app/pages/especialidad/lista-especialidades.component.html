@@ -1,0 +1,50 @@
+<div class="rowanimated fadeIn">
+    <div class="col-12 p-0">
+        <div class="card mb-2 mt-3">
+            <div class="card-body">
+                <div class="text-right">
+                    <button [routerLink]="['/especialidad', 'nuevo']" type="button" title="Crear Registro"
+                        class="btn waves-effect waves-light btn-rounded btn-primary">
+                        <i class="icon-plus"></i>
+                        Crear Especialidad
+                    </button>
+                </div>
+                <h3 class="card-title color-titulo">
+                    Lista de Especialidades
+                </h3>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="
+                  let especialidad of especialidades
+                    | paginate: { itemsPerPage: 5, currentPage: pagina }">
+                            <td>
+                                {{ especialidad.nombre }}
+                            </td>
+                            <td>
+                                {{ especialidad.descripcion }}
+                            </td>
+                            <td class="no-wrap">
+                                <button [routerLink]="['/especialidad', especialidad.id]" class="btn btn-primary btn-sm mr-1" title="Editar Registro">
+                                    <i class="icon-pencil"></i>
+                                </button>
+
+                                <button (click)="borrar(especialidad)" class="btn btn-secondary btn-sm" title="Eliminar Registro">
+                                    <i class="icon-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="pagina = $event"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>

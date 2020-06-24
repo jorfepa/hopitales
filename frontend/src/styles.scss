@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+$color-boton: #ED7D31;
+$titulos: #525252;
+/* .btn-primary .hover{
+    background-color: $color-boton;
+    border-color: $color-boton;
+} */
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active {
+  border-color: $color-boton;
+  background-color: $color-boton;
+}
+
+.btn-primary:disabled{
+    background-color: #b8a66c;
+}
+
+.color-titulo{
+  color: $titulos;
+}
+
+.subtitulo{
+  color: $titulos;
+}
+
+.no-wrap{
+  white-space: nowrap;
+}
