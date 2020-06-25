@@ -4,6 +4,8 @@ export class Nota{
     idDoctor: String;
     descripcion: String;
     fecha: Date;
+    nombrePaciente: string;
+    nombreDoctor: string;
     fechaCreacion: Date;
     fechaActualizacion: Date;
     creadoPor: string;
