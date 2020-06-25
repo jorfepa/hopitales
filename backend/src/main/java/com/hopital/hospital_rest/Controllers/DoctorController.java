@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.TimeZone;
 
 import com.hopital.hospital_rest.Services.DoctorService;
 import com.hopital.hospital_rest.Entities.Doctor;
@@ -35,6 +36,7 @@ public class DoctorController {
 
     @PostMapping("/doctores")
     public Doctor add(@RequestBody Doctor doctor){
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         Date fechaActual = new Date(Calendar.getInstance().getTime().getTime());
         doctor.setCreadoPor("Usuario Creacion");
         doctor.setFechaCreacion(fechaActual);
@@ -43,6 +45,7 @@ public class DoctorController {
 
     @PutMapping("/doctores/{id}")
     public Doctor update(@RequestBody Doctor doctor, @PathVariable Integer id){
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         try{
             Doctor doctorPaciente = service.get(id);
             doctorPaciente.setIdHospital(doctor.getIdHospital());

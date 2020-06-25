@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.TimeZone;
 
 import com.hopital.hospital_rest.Services.NotaService;
 import com.hopital.hospital_rest.Entities.Nota;
@@ -42,6 +43,7 @@ public class NotaController {
 
     @PostMapping("/notas")
     public void add(@RequestBody Nota nota){
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         Date fechaActual = new Date(Calendar.getInstance().getTime().getTime());              
         nota.setFecha(nota.getFecha());
         nota.setCreadoPor("Usuario Creacion");
@@ -51,6 +53,7 @@ public class NotaController {
 
     @PutMapping("/notas/{id}")
     public ResponseEntity<?> update(@RequestBody Nota nota, @PathVariable Integer id){
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         try{
             Nota existNota = service.get(id);
             existNota.setIdPaciente(nota.getIdPaciente());
