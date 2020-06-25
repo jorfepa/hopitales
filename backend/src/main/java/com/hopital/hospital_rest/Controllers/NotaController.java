@@ -8,6 +8,7 @@ import java.util.TimeZone;
 
 import com.hopital.hospital_rest.Services.NotaService;
 import com.hopital.hospital_rest.Entities.Nota;
+import com.hopital.hospital_rest.Interfaces.INotaDetallada;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class NotaController {
     }
 
     @GetMapping("/notas/paciente/{id}")
-    public List<Nota> listByIdPaciente(@PathVariable Integer id){
+    public List<INotaDetallada> listByIdPaciente(@PathVariable Integer id){
         return service.listByIdPaciente(id);
     }
 
